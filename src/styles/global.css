@@ -1,0 +1,48 @@
+/* ============================================
+   GLOBAL UTILITY CLASSES
+   Utility classes used across components.
+   ============================================ */
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Text Utilities */
+.text-muted { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-accent { color: var(--color-accent); }
+.text-nominal { color: var(--color-nominal); }
+.text-warning { color: var(--color-warning); }
+.text-critical { color: var(--color-critical); }
+.text-info { color: var(--color-info); }
+.text-mono { font-family: var(--font-mono); }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.05em; }
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 52px;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
