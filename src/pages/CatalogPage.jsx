@@ -11,7 +11,7 @@ import SectionHeader from '../components/common/SectionHeader';
 import ChartPlaceholder from '../components/common/ChartPlaceholder';
 import CatalogFilters from '../components/catalog/CatalogFilters';
 import CatalogTable from '../components/catalog/CatalogTable';
-import { catalogStats } from '../data/catalogData';
+import { useCatalogStats } from '../hooks/useCatalogStats';
 import {
   TargetIcon,
   CpuIcon,
@@ -29,6 +29,7 @@ const ICON_MAP = {
 };
 
 const CatalogPage = () => {
+  const { stats: catalogStats, loading, error } = useCatalogStats();
   const [searchValue, setSearchValue] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [orbitFilter, setOrbitFilter] = useState('');
@@ -45,7 +46,7 @@ const CatalogPage = () => {
         </header>
 
         {/* Summary Stats */}
-        <div className="stats-grid" style={{ marginBottom: 'var(--space-8)' }}>
+        <div className="stats-grid" style={{ marginBottom: 'var(--space-8)', opacity: loading ? 0.5 : 1, transition: 'opacity 0.3s' }}>
           {catalogStats.map((stat) => {
             const IconComp = ICON_MAP[stat.icon];
             return (
@@ -60,6 +61,11 @@ const CatalogPage = () => {
             );
           })}
         </div>
+        {error && (
+          <p style={{ color: 'var(--color-warning)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-4)' }}>
+            Unable to fetch live data — showing cached values.
+          </p>
+        )}
 
         {/* Filters */}
         <CatalogFilters
