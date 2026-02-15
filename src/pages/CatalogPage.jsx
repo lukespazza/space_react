@@ -1,17 +1,11 @@
-/**
- * Object Catalog Page
- *
- * Comprehensive database of all tracked space objects with orbital elements.
- * Features: stat cards, search/filter controls, data table, pagination, distribution charts.
- */
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StatCard from '../components/common/StatCard';
 import SectionHeader from '../components/common/SectionHeader';
 import ChartPlaceholder from '../components/common/ChartPlaceholder';
 import CatalogFilters from '../components/catalog/CatalogFilters';
 import CatalogTable from '../components/catalog/CatalogTable';
 import { useCatalogStats } from '../hooks/useCatalogStats';
+import { useCatalogResidents } from '../hooks/useCatalogResidents';
 import {
   TargetIcon,
   CpuIcon,
@@ -28,12 +22,39 @@ const ICON_MAP = {
   RocketIcon,
 };
 
+const TYPE_FILTER_MAP = {
+  payload: 'PAYLOAD',
+  rocket: 'ROCKET BODY',
+  debris: 'DEBRIS',
+};
+
 const CatalogPage = () => {
-  const { stats: catalogStats, loading, error } = useCatalogStats();
+  const { stats: catalogStats, loading: statsLoading, error: statsError } = useCatalogStats();
   const [searchValue, setSearchValue] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [orbitFilter, setOrbitFilter] = useState('');
   const [countryFilter, setCountryFilter] = useState('');
+
+  // Debounce search input (400ms)
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchValue.trim()), 400);
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
+  const {
+    residents,
+    meta,
+    page,
+    loading: tableLoading,
+    error: tableError,
+    goToPage,
+  } = useCatalogResidents({
+    search: debouncedSearch || undefined,
+    objectType: TYPE_FILTER_MAP[typeFilter] || undefined,
+    regime: orbitFilter || undefined,
+    country: countryFilter || undefined,
+  });
 
   return (
     <main className="page service-page">
@@ -46,7 +67,7 @@ const CatalogPage = () => {
         </header>
 
         {/* Summary Stats */}
-        <div className="stats-grid" style={{ marginBottom: 'var(--space-8)', opacity: loading ? 0.5 : 1, transition: 'opacity 0.3s' }}>
+        <div className="stats-grid" style={{ marginBottom: 'var(--space-8)', opacity: statsLoading ? 0.5 : 1, transition: 'opacity 0.3s' }}>
           {catalogStats.map((stat) => {
             const IconComp = ICON_MAP[stat.icon];
             return (
@@ -61,7 +82,7 @@ const CatalogPage = () => {
             );
           })}
         </div>
-        {error && (
+        {(statsError || tableError) && (
           <p style={{ color: 'var(--color-warning)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-4)' }}>
             Unable to fetch live data — showing cached values.
           </p>
@@ -81,7 +102,13 @@ const CatalogPage = () => {
 
         {/* Results Table */}
         <section className="section">
-          <CatalogTable />
+          <CatalogTable
+            residents={residents}
+            meta={meta}
+            loading={tableLoading}
+            page={page}
+            onPageChange={goToPage}
+          />
         </section>
 
         {/* Distribution Charts */}

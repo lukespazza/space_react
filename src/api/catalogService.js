@@ -1,5 +1,19 @@
 import { get } from './spockClient';
 
+export async function fetchResidents({ page = 1, perPage = 25, search, objectType, regime, country, sortBy, sortOrder } = {}) {
+  const params = new URLSearchParams();
+  params.set('page', page);
+  params.set('per_page', perPage);
+  if (search) params.set('search', search);
+  if (objectType) params.set('object_type', objectType);
+  if (regime) params.set('regime', regime);
+  if (country) params.set('country', country);
+  if (sortBy) params.set('sort_by', sortBy);
+  if (sortOrder) params.set('sort_order', sortOrder);
+
+  return get(`/residents/paginated-with-orbits?${params.toString()}`);
+}
+
 const STAT_CONFIG = {
   total_residents: {
     id: 'total',

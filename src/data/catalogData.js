@@ -38,19 +38,6 @@ export const catalogStats = [
   },
 ];
 
-export const catalogObjects = [
-  { noradId: '25544', name: 'ISS (ZARYA)', type: 'Payload', typeVariant: 'nominal', perigee: '408 km', apogee: '410 km', inclination: '51.64°', country: 'US', orbitRegime: 'LEO', status: 'Active', statusColor: 'nominal' },
-  { noradId: '48274', name: 'STARLINK-2547', type: 'Payload', typeVariant: 'nominal', perigee: '540 km', apogee: '551 km', inclination: '53.05°', country: 'US', orbitRegime: 'LEO', status: 'Active', statusColor: 'nominal' },
-  { noradId: '33001', name: 'COSMOS 2251 DEB', type: 'Debris', typeVariant: 'warning', perigee: '745 km', apogee: '815 km', inclination: '74.04°', country: 'RU', orbitRegime: 'LEO', status: 'Tracked', statusColor: 'muted' },
-  { noradId: '54892', name: 'CZ-2C R/B', type: 'R/B', typeVariant: null, perigee: '130 km', apogee: '155 km', inclination: '42.73°', country: 'CN', orbitRegime: 'LEO', status: 'Decaying', statusColor: 'critical' },
-  { noradId: '39084', name: 'FENGYUN 1C DEB', type: 'Debris', typeVariant: 'warning', perigee: '830 km', apogee: '900 km', inclination: '98.87°', country: 'CN', orbitRegime: 'LEO', status: 'Tracked', statusColor: 'muted' },
-  { noradId: '41866', name: 'SENTINEL-3A', type: 'Payload', typeVariant: 'nominal', perigee: '810 km', apogee: '818 km', inclination: '98.62°', country: 'EU', orbitRegime: 'LEO', status: 'Active', statusColor: 'nominal' },
-  { noradId: '43013', name: 'COSMOS 2519 DEB', type: 'Debris', typeVariant: 'warning', perigee: '610 km', apogee: '675 km', inclination: '82.44°', country: 'RU', orbitRegime: 'LEO', status: 'Tracked', statusColor: 'muted' },
-  { noradId: '28654', name: 'IRIDIUM 33 DEB', type: 'Debris', typeVariant: 'warning', perigee: '760 km', apogee: '820 km', inclination: '86.39°', country: 'US', orbitRegime: 'LEO', status: 'Tracked', statusColor: 'muted' },
-  { noradId: '44713', name: 'ONEWEB-0012', type: 'Payload', typeVariant: 'nominal', perigee: '1,190 km', apogee: '1,212 km', inclination: '87.90°', country: 'GB', orbitRegime: 'LEO', status: 'Active', statusColor: 'nominal' },
-  { noradId: '22285', name: 'SL-16 R/B', type: 'R/B', typeVariant: null, perigee: '840 km', apogee: '862 km', inclination: '71.01°', country: 'RU', orbitRegime: 'LEO', status: 'Tracked', statusColor: 'muted' },
-];
-
 export const objectTypeOptions = [
   { value: '', label: 'All Types' },
   { value: 'payload', label: 'Payload' },
@@ -60,10 +47,20 @@ export const objectTypeOptions = [
 
 export const orbitRegimeOptions = [
   { value: '', label: 'All Orbits' },
-  { value: 'leo', label: 'LEO' },
-  { value: 'meo', label: 'MEO' },
-  { value: 'geo', label: 'GEO' },
-  { value: 'heo', label: 'HEO' },
+  { value: 'GEO', label: 'GEO' },
+  { value: 'IGO', label: 'IGO' },
+  { value: 'EGO', label: 'EGO' },
+  { value: 'NSO', label: 'NSO' },
+  { value: 'GTO', label: 'GTO' },
+  { value: 'MEO', label: 'MEO' },
+  { value: 'GHO', label: 'GHO' },
+  { value: 'LEO', label: 'LEO' },
+  { value: 'HAO', label: 'HAO' },
+  { value: 'MGO', label: 'MGO' },
+  { value: 'HEO', label: 'HEO' },
+  { value: 'LMO', label: 'LMO' },
+  { value: 'UFO', label: 'UFO' },
+  { value: 'ESO', label: 'ESO' },
 ];
 
 export const countryOptions = [
