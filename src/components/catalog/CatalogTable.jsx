@@ -7,8 +7,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '../../icons';
  * CatalogTable — Paginated data table of tracked space objects.
  *
  * Displays a results header with total count, then a grid-based data table
- * with columns: NORAD ID, Object Name, Type (badge), Altitude, Inclination,
- * and Status (colored text).
+ * with columns: NORAD ID, Object Name, Type (badge), Perigee, Apogee,
+ * Inclination, Country (ISO 3166-1 alpha-2), Orbit Regime, and Status (colored text).
  *
  * A static pagination bar is rendered at the bottom with numbered page buttons.
  *
@@ -18,7 +18,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '../../icons';
  */
 
 // Grid template shared between header and row for consistent column sizing
-const gridColumns = '140px 1fr 120px 100px 100px 80px';
+const gridColumns = '100px 1fr 100px 100px 100px 100px 60px 80px 80px';
 
 const CatalogTable = () => {
   return (
@@ -40,8 +40,11 @@ const CatalogTable = () => {
           <span>NORAD ID</span>
           <span>Object Name</span>
           <span>Type</span>
-          <span>Altitude</span>
+          <span>Perigee</span>
+          <span>Apogee</span>
           <span>Inclination</span>
+          <span>Country</span>
+          <span>Orbit</span>
           <span>Status</span>
         </div>
 
@@ -65,11 +68,20 @@ const CatalogTable = () => {
               <Badge variant={obj.typeVariant}>{obj.type}</Badge>
             </span>
 
-            {/* Altitude in monospace */}
-            <span className="mono">{obj.altitude}</span>
+            {/* Perigee altitude in monospace */}
+            <span className="mono">{obj.perigee}</span>
+
+            {/* Apogee altitude in monospace */}
+            <span className="mono">{obj.apogee}</span>
 
             {/* Inclination in monospace */}
             <span className="mono">{obj.inclination}</span>
+
+            {/* Country code */}
+            <span className="mono">{obj.country}</span>
+
+            {/* Orbit regime */}
+            <span>{obj.orbitRegime}</span>
 
             {/* Status with conditional color */}
             <span
